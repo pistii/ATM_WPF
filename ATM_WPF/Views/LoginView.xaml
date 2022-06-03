@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="atm_wpf.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:atm_wpf.Views" xmlns:models="clr-namespace:atm_wpf.Models" 
+        mc:Ignorable="d" d:Height="450" d:Width="800"
+        d:DataContext="{d:DesignInstance Type=models:Cliens}">
+    <Grid Background="Blue">
+    <StackPanel>
+        <Label FontSize="30" Width="300" Margin="0, 50, 0, 0" Padding="10" HorizontalContentAlignment="Center" Content="Bejelentkezés"/>
+        <TextBox Text="{Binding Cliens.UserName}" Width="200"  Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+        <TextBox Text="{Binding Cliens.Pin}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+        <TextBox Text="{Binding Cliens.KartyaId}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+
+        <Button Content="Belép" Width="150" Padding="10" Margin="40" Command="{Binding UpdateViewCommand}" CommandParameter="Enter"/>
+    </StackPanel>
+    <ContentControl Content="{Binding SelectedViewModel}"/>
+
+    </Grid>
+</UserControl>
+

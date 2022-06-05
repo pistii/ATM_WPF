@@ -8,15 +8,32 @@ using System.Windows.Controls;
 
 namespace atm_wpf.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public partial class LoginViewModel : BaseViewModel
     {
         private int pin;
         private string username;
         private string password;
         private string kartyaId;
-        public Cliens _Cliens;
-
         public BaseViewModel _selectedViewModel;
+        private Cliens _Cliens;
+
+
+        public LoginViewModel()
+        {
+            UpdateViewCommand = new UpdateViewCommand(this);
+            UpdateCommand = new CliensUpdateCommand(this);
+
+            _Cliens = new Cliens(username, kartyaId, pin, 123);
+
+        }
+
+        public Cliens Cliens
+        {
+            get
+            {
+                return _Cliens;
+            }
+        }
 
         public BaseViewModel SelectedViewModel
         {
@@ -28,31 +45,25 @@ namespace atm_wpf.ViewModels
             }
         }
 
-        public LoginViewModel()
-        {
-            UpdateViewCommand = new UpdateViewCommand(this);
-        }
+        public ICommand UpdateCommand { get; private set; }
+        public ICommand UpdateViewCommand { get; private set; }
 
-        public ICommand UpdateCommand { get; set; }
-        public ICommand UpdateViewCommand { get; set; }
+
 
         public bool Login()
         {
             bool belep = false;
-            //fullname, pin, kartyaId, balance
-
             using (StreamReader sr = new StreamReader(@"ATM.txt"))
             {
                 foreach (string line in File.ReadLines(@"ATM.txt"))
                 {
                     string[] sor = line.Split(',');
-                    if (sor[0] == UserName && sor[1] == Pin.ToString() && sor[2] == KartyaId)
+                    if (sor[0] == _Cliens.UserName && sor[1] == _Cliens.Pin.ToString() && sor[2] == _Cliens.KartyaId)
                     {
                         belep = true;
                         break;
                     }
                 }
-                MessageBox.Show("    " + KartyaId);
             }
             if (belep)
             {
@@ -60,78 +71,10 @@ namespace atm_wpf.ViewModels
             }
             else
             {
+                MessageBox.Show("Név, kártyaid vagy pin nem megfelelő.");
                 return false;
             }
-        }
-
-
-
-        public bool CanUpdate
-        {
-            get
-            {
-                if (Cliens.UserName == null && Cliens.KartyaId == null && Cliens.Pin == 0)
-                {
-                    return false;
-                }
-                return !String.IsNullOrWhiteSpace(Cliens.UserName);
-            }
-        }
-
-        public string UserName
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                username = value;
-            }
-        }
-
-        public int Pin
-        {
-            get
-            {
-                MessageBox.Show(pin.ToString());
-                return pin;
-            }
-            set
-            {
-                MessageBox.Show(value.ToString());
-                pin = value;
-            }
-        }
-
-        public string KartyaId
-        {
-            get
-            {
-                return kartyaId;
-            }
-            set
-            {
-                kartyaId = value;
-            }
-        }
-
-
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
-
-        public string Balance { get; private set; }
-
-
-        public Cliens Cliens
-        {
-            get
-            {
-                return _Cliens;
-            }
+            
         }
 
     }

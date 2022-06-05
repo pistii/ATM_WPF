@@ -9,7 +9,9 @@ namespace atm_wpf.Views
     {
         public LoginView()
         {
+
             InitializeComponent();
+            
         }
     }
 }

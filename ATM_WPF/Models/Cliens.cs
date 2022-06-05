@@ -11,26 +11,16 @@ namespace atm_wpf.Models
         private string kartyaId;
         private int pin;
         private int balance;
-        private string password;
         private int amount;
 
-        public Cliens(string _name, string _id, int pin, int _balance)
+        public Cliens(string _name, string _cardId, int pin, int _balance)
         {
             UserName = _name;
-            KartyaId = _id;
+            KartyaId = _cardId;
             Pin = pin;
             Balance = _balance;
         }
 
-        public int Balance
-        {
-            get { return balance; }
-            set { 
-                balance += value;
-                OnPropertyChanged("Balance");
-            }
-        }
-        
         public string UserName
         {
             get { return username; }
@@ -49,11 +39,37 @@ namespace atm_wpf.Models
             get { return pin; }
             set { pin = value; }
         }
-
-        public string Password
+        public int Balance
         {
-            get { return password; }
-            set { password = value; }
+            get { return balance; }
+            set
+            {
+                balance += value;
+                OnPropertyChanged("Balance");
+            }
+        }
+
+        public int Amount
+        {
+            get { return amount; }
+            set
+            {
+                Balance += value;
+                /*
+                if (int.TryParse(value, out value))
+                {
+                    if (amount >= 1)
+                    {
+                        Balance += value;
+
+                    }
+                    else if (amount <= -1)
+                    {
+                        Balance -= value;
+                    }
+                } else { Int32.Parse(value)};
+                */
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

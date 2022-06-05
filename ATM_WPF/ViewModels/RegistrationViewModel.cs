@@ -12,13 +12,13 @@ namespace atm_wpf.ViewModels
     public class RegistrationViewModel : BaseViewModel
     {
         Random random = new Random();
-        private int id; //Későbbi kártyaid
-        private int pin;
-        private string kartyaId = "";
-        private bool egyedi = false;
         private string username;
-        private string password;
+        private int id; //Későbbi kártyaid
+        private string kartyaId = "";
+        private int pin;
+        private bool egyedi = false;
         public BaseViewModel _selectedViewModel;
+        private Cliens _Cliens;
 
         public BaseViewModel SelectedViewModel
         {
@@ -33,11 +33,18 @@ namespace atm_wpf.ViewModels
         public RegistrationViewModel()
         {
             GenerateIds();
-            _Cliens = new Cliens("Név", KartyaId, Pin, 0);
+            _Cliens = new Cliens(username, kartyaId, pin, 100000);
             UpdateViewCommand = new UpdateViewCommand(this);
             UpdateCommand = new CliensUpdateCommand(this);
         }
-        
+        public Cliens Cliens
+        {
+            get
+            {
+                return _Cliens;
+            }
+        }
+
         public ICommand UpdateCommand {get; private set; }
         public ICommand UpdateViewCommand { get; set; }
 
@@ -98,68 +105,9 @@ namespace atm_wpf.ViewModels
             }
             using (StreamWriter sw = new StreamWriter(@"ATM.txt", append: true))
             {
-                sw.WriteLine(Cliens.UserName + "," + Pin + "," + KartyaId + "," + 0 + "," + Password);
+                sw.WriteLine(_Cliens.UserName + "," + _Cliens.Pin + "," + _Cliens.KartyaId + "," + 0 + ",");
             }
         }
-
-        //Getters - setters
-        public string UserName
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                username = value;
-                OnPropertyChanged("UserName");
-            }
-        }
-
-        public int Pin
-        {
-            get
-            {
-                return pin;
-            }
-            set
-            {
-                pin = value;
-            }
-        }
-
-        public string KartyaId
-        {
-            get
-            {
-                return kartyaId;
-            }
-            set
-            {
-                kartyaId = value;
-            }
-        }
-
-
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
-
-        public string Balance { get; private set; }
-
-
-        private Cliens _Cliens;
-
-        public Cliens Cliens
-        {
-            get
-            {
-                return _Cliens;
-            }
-        }
-
 
 
         public bool CanUpdate

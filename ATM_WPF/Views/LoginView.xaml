@@ -9,9 +9,12 @@
     <Grid Background="Blue">
     <StackPanel>
         <Label FontSize="30" Width="300" Margin="0, 50, 0, 0" Padding="10" HorizontalContentAlignment="Center" Content="Bejelentkezés"/>
-        <TextBox Text="{Binding Cliens.UserName}" Width="200"  Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
-        <TextBox Text="{Binding Cliens.Pin}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
-        <TextBox Text="{Binding Cliens.KartyaId}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+            <Label Content="Név" HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding Cliens.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"  Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+            <Label Content="Pinkód" HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding Cliens.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
+            <Label Content="Kártyaszám" HorizontalAlignment="Center"/>
+            <TextBox Text="{Binding Cliens.KartyaId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="10" HorizontalContentAlignment="Center" FontStyle="Italic"/>
 
         <Button Content="Belép" Width="150" Padding="10" Margin="40" Command="{Binding UpdateViewCommand}" CommandParameter="Enter"/>
     </StackPanel>

@@ -11,7 +11,7 @@ namespace atm_wpf.Commands
         private MainViewModel viewModel;
         private RegistrationViewModel registrationViewModel;
         private LoginViewModel loginViewModel;
-
+        private HomeViewModel homeViewModel;
 
         public UpdateViewCommand(MainViewModel viewModel)
         {
@@ -27,6 +27,12 @@ namespace atm_wpf.Commands
         {
             this.loginViewModel = loginViewModel;
         }
+        
+        public UpdateViewCommand(HomeViewModel homeViewModel)
+        {
+            this.homeViewModel = homeViewModel;
+        }
+
 
         public event System.EventHandler CanExecuteChanged
         {
@@ -46,23 +52,22 @@ namespace atm_wpf.Commands
             {
                 viewModel.SelectedViewModel = new RegistrationViewModel();
             }
-
             else if (parameter.ToString() == "Login")
             {
-                if (loginViewModel.Login())
-                {
-                    viewModel.SelectedViewModel = new LoginViewModel();
-                } else
-                {
-                    MessageBox.Show("Hibás adatok.");
-                }
-               
+                viewModel.SelectedViewModel = new LoginViewModel();
             }
-            else if (parameter.ToString() == "RegistOK")
+            else
             {
-                if (registrationViewModel.CheckRegistrationFields())
+                if (parameter.ToString() == "Enter" && loginViewModel.Login())
                 {
-                    registrationViewModel.SelectedViewModel = new HomeViewModel();
+                    loginViewModel.SelectedViewModel = new HomeViewModel();
+                }
+                else if (parameter.ToString() == "RegistOK")
+                {
+                    if (registrationViewModel.CheckRegistrationFields())
+                    {
+                        registrationViewModel.SelectedViewModel = new HomeViewModel();
+                    }
                 }
             }
         } 

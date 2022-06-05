@@ -9,20 +9,31 @@ x:Class="atm_wpf.Views.HomeView"
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="450" Width="800">
         <StackPanel Margin="10,10,10,2">
-            <StackPanel Height="164" Margin="5">
+            <StackPanel Height="204" Margin="5">
 
                 <Label Content="Pénzküldés" Height="50" Width="160" FontSize="30"></Label>
                 <Label Content="Célszemély neve" Width="100"/>
+                <TextBox Height="20" Width="150" Text="{Binding Cliens.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Cél kártyaszám" Width="93"/>
                 <TextBox Height="20" Width="150"/>
-                <Label Content="Cél kártyaszám" Width="100"/>
+                <Label Content="Összeg" Width="50"/>
                 <TextBox Height="20" Width="150"/>
             </StackPanel>
-            <StackPanel Margin="40">
-            <Label Content="Pénzkivétel" Height="50" Width="160" FontSize="30"/>
-            <Label Content="Összeg" Width="50"/>
-            <TextBox Height="20" Width="150"/>
-                <Button Command="{Binding UpdateViewCommand}" CommandParameter="SendOk" Width="100" Height="40" Margin="40">OK.</Button>
-            </StackPanel>
+            <Grid>
+                <StackPanel Width="390" HorizontalAlignment="Left">
+                    <Label Content="Pénzkivétel" Height="50" Width="160" FontSize="30"/>
+                    <Label Content="Összeg" Width="50"/>
+                    <TextBox Height="20" Width="150" Text="{Binding Cliens.Amount}"/>
+                </StackPanel>
+                <StackPanel Width="390" HorizontalAlignment="Left" Margin="390,0,0,0">
+                    <Label Content="Pénzbefizetés" Height="50" Width="200" FontSize="30"/>
+                    <Label Content="Összeg" Width="50"/>
+                    <TextBox Height="20" Width="150" Text="{Binding Cliens.Amount}"/>
+                </StackPanel>
+                
+            </Grid>
+            <Button Command="{Binding UpdateViewCommand}" CommandParameter="SendOk" Width="100" Height="44" Margin="55">OK.</Button>
+
         </StackPanel>
         <ContentControl Content="{Binding SelectedViewModel}"/>
 
